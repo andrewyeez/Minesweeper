@@ -38,6 +38,44 @@ let generateBombBoard = (row, column, bombs) => {
   return bombBoard
 }
 
+/**
+ *  A flipped tile can have 8 possible neighbors, at most, no matter the size of a board
+ *
+ *  a | b | c
+ *  d | + | e
+ *  f | g | h
+ *
+ * [rowOffset, colOffset]
+ *
+ * Column: (-1) to the left (1) to the right  (0) same
+ *    Row: (-1) to the top  (1) to the bottom (0) same
+ *
+ * [-1,-1] | [-1,0] | [-1,1]
+ * [ 0,-1] | [ 0,0] | [ 0,1]
+ * [ 1,-1] | [ 1,0] | [ 1,1]
+ *
+ * @param {col * row size board} bombBoard
+ * @param {row coordinate} rowIndex
+ * @param {col coordinate} columnIndex
+ */
+// Function to calculate the # of bombs surrounding a location the user picked
+let getNumberOfNeighborBombs = (bombBoard, rowIndex, columnIndex) => {
+  // check if bomb was hit
+  if (bombBoard[rowIndex, columnIndex] === 'B') { return 'BOMB BRRRRRAAH' }
+  let userSelected = [rowIndex, columnIndex]
+  let neighbors = [
+    [bombBoard[rowIndex-1][columnIndex-1]],
+    [bombBoard[rowIndex-1][columnIndex]],
+    [bombBoard[rowIndex-1][columnIndex+1]],
+    [bombBoard[rowIndex][columnIndex-1]],
+    [bombBoard[rowIndex][columnIndex+1]],
+    [bombBoard[rowIndex+1][columnIndex-1]],
+    [bombBoard[rowIndex+1][columnIndex]],
+    [bombBoard[rowIndex+1][columnIndex+1]]
+  ]
+  return neighbors.filter(neighbors => neighbor === 'B').length
+}
+
 let printBoard = (player, bomb) => {
   console.log('Player Board: ')
   console.log(player.map(row => row.join(' | ')).join('\n'))
