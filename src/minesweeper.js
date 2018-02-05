@@ -60,18 +60,16 @@ let generateBombBoard = (row, column, bombs) => {
  */
 // Function to calculate the # of bombs surrounding a location the user picked
 let getNumberOfNeighborBombs = (bombBoard, rowIndex, columnIndex) => {
-  // check if bomb was hit
   if (bombBoard[rowIndex, columnIndex] === 'B') { return 'BOMB BRRRRRAAH' }
-  let userSelected = [rowIndex, columnIndex]
   let neighbors = [
-    [bombBoard[rowIndex-1][columnIndex-1]],
-    [bombBoard[rowIndex-1][columnIndex]],
-    [bombBoard[rowIndex-1][columnIndex+1]],
-    [bombBoard[rowIndex][columnIndex-1]],
-    [bombBoard[rowIndex][columnIndex+1]],
-    [bombBoard[rowIndex+1][columnIndex-1]],
-    [bombBoard[rowIndex+1][columnIndex]],
-    [bombBoard[rowIndex+1][columnIndex+1]]
+    [bombBoard[rowIndex-1][columnIndex-1]], // a
+    [bombBoard[rowIndex-1][columnIndex]],   // b
+    [bombBoard[rowIndex-1][columnIndex+1]], // c
+    [bombBoard[rowIndex][columnIndex-1]],   // d
+    [bombBoard[rowIndex][columnIndex+1]],   // e
+    [bombBoard[rowIndex+1][columnIndex-1]], // f
+    [bombBoard[rowIndex+1][columnIndex]],   // g
+    [bombBoard[rowIndex+1][columnIndex+1]]  // h
   ]
   return neighbors.filter(neighbors => neighbor === 'B').length
 }
