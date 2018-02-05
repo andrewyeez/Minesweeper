@@ -42,9 +42,9 @@ let generateBombBoard = (row, column, bombs) => {
  *
  * Returns the number of bombs that surrounds the given indeces
  *
- * @param {col * row size board - ARRAY} bombBoard
- * @param {row coordinate - NUMBER} rowIndex
- * @param {col coordinate - NUMBER} columnIndex
+ * @param {Array} bombBoard
+ * @param {Number} rowIndex
+ * @param {Number} columnIndex
  */
 // Function to calculate the # of bombs surrounding a location the user picked
 let getNumberOfNeighborBombs = (bombBoard, rowIndex, columnIndex) => {
@@ -74,12 +74,44 @@ let getValue = (bombBoard, rowIndex, columnIndex) => {
   return bombBoard[rowIndex] === undefined ? false : bombBoard[rowIndex][columnIndex]
 }
 
-let printBoard = (player, bomb) => {
-  console.log('Player Board: ')
-  console.log(player.map(row => row.join(' | ')).join('\n'))
-  console.log('Bomb Board: ')
-  console.log(bomb.map(row => row.join(' | ')).join('\n'))
-  console.log(getNumberOfNeighborBombs(bomb, 0,0))
+/**
+ * returns the playerBoard (Array) that has been flipped a tile based on the users input
+ *
+ * @param {Array} playerBoard
+ * @param {Array} bombBoard
+ * @param {Number} rowIndex
+ * @param {Number} columnIndex
+ */
+let flipTile = (playerBoard, bombBoard, rowIndex, columnIndex) => {
+  let tile = getValue(playerBoard, rowIndex, columnIndex)
+  if (tile && tile === ' ') {
+    // non-flipped tile
+    playerBoard[rowIndex][columnIndex] = getNumberOfNeighborBombs(bombBoard, rowIndex, columnIndex)
+    return playerBoard
+  } else if (tile && tile === 'B') {
+    // bomb tile
+    return 'BOMB'
+  }  else if (tile === false || tile === undefined) {
+    // out of bounds
+    return 'OUT OF BOUNDS'
+  } else {
+    // flipped tile
+    return playerBoard
+  }
 }
 
-printBoard(generatePlayerBoard(6,6), generateBombBoard(6,6,4))
+let printBoard = (player, bomb, flippedPlayer) => {
+  // console.log('Player Board: ')
+  // console.log(player.map(row => row.join(' | ')).join('\n'))
+  console.log('Bomb Board: ')
+  console.log(bomb.map(row => row.join(' | ')).join('\n'))
+  console.log('Updated Player Board: ')
+  console.log(flippedPlayer.map(row => row.join(' | ')).join('\n'))
+}
+
+
+let player = generatePlayerBoard(6,6)
+let bomb = generateBombBoard(6,6,4)
+let flip1 = flipTile(player, bomb, 1, 2)
+let flip2 = flipTile(player, bomb, 3, 2)
+printBoard(player, bomb, flip2)
