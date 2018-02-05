@@ -2,20 +2,6 @@
  * Minesweeper Project from CodeAcademy
  */
 
-/**
-  // Mistake: when we use board.push(element), we are using a reference to the variable element.
-  // By inserting a new item inside element, it will be seen on all the reference to the element array
-
-  let generatePlayerBoard = (row, column) => {
-    let element = []
-    let board = []
-    while (row--) { element.push(' ') }
-    while (column--) { board.push(element) }
-    return board
-  }
-
- */
-
 let generatePlayerBoard = (row, column) => {
   let board = []
   while (row--) {
