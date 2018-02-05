@@ -54,9 +54,11 @@ let generateBombBoard = (row, column, bombs) => {
  * [ 0,-1] | [ 0,0] | [ 0,1]
  * [ 1,-1] | [ 1,0] | [ 1,1]
  *
- * @param {col * row size board} bombBoard
- * @param {row coordinate} rowIndex
- * @param {col coordinate} columnIndex
+ * Returns the number of bombs that surrounds the given indeces
+ *
+ * @param {col * row size board - ARRAY} bombBoard
+ * @param {row coordinate - NUMBER} rowIndex
+ * @param {col coordinate - NUMBER} columnIndex
  */
 // Function to calculate the # of bombs surrounding a location the user picked
 let getNumberOfNeighborBombs = (bombBoard, rowIndex, columnIndex) => {
@@ -71,10 +73,17 @@ let getNumberOfNeighborBombs = (bombBoard, rowIndex, columnIndex) => {
     getValue(bombBoard, rowIndex+1,columnIndex),   // g
     getValue(bombBoard, rowIndex+1,columnIndex+1)  // h
   ]
-  console.log(neighbors)
   return neighbors.filter(neighbor => neighbor === 'B').length
 }
 
+/**
+ * Returns the value of the given indeces
+ * Returns false/undefined if out of bounds
+ *
+ * @param {Array} bombBoard
+ * @param {Number} rowIndex
+ * @param {Number} columnIndex
+ */
 let getValue = (bombBoard, rowIndex, columnIndex) => {
   return bombBoard[rowIndex] === undefined ? false : bombBoard[rowIndex][columnIndex]
 }
