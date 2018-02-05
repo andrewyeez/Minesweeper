@@ -60,18 +60,23 @@ let generateBombBoard = (row, column, bombs) => {
  */
 // Function to calculate the # of bombs surrounding a location the user picked
 let getNumberOfNeighborBombs = (bombBoard, rowIndex, columnIndex) => {
-  if (bombBoard[rowIndex, columnIndex] === 'B') { return 'BOMB BRRRRRAAH' }
+  if (bombBoard[rowIndex, columnIndex] === 'B') { console.log('BOMB BRRRRRAAH') }
   let neighbors = [
-    [bombBoard[rowIndex-1][columnIndex-1]], // a
-    [bombBoard[rowIndex-1][columnIndex]],   // b
-    [bombBoard[rowIndex-1][columnIndex+1]], // c
-    [bombBoard[rowIndex][columnIndex-1]],   // d
-    [bombBoard[rowIndex][columnIndex+1]],   // e
-    [bombBoard[rowIndex+1][columnIndex-1]], // f
-    [bombBoard[rowIndex+1][columnIndex]],   // g
-    [bombBoard[rowIndex+1][columnIndex+1]]  // h
+    getValue(bombBoard, rowIndex-1,columnIndex-1), // a
+    getValue(bombBoard, rowIndex-1,columnIndex),   // b
+    getValue(bombBoard, rowIndex-1,columnIndex+1), // c
+    getValue(bombBoard, rowIndex,columnIndex-1),   // d
+    getValue(bombBoard, rowIndex,columnIndex+1),   // e
+    getValue(bombBoard, rowIndex+1,columnIndex-1), // f
+    getValue(bombBoard, rowIndex+1,columnIndex),   // g
+    getValue(bombBoard, rowIndex+1,columnIndex+1)  // h
   ]
-  return neighbors.filter(neighbors => neighbor === 'B').length
+  console.log(neighbors)
+  return neighbors.filter(neighbor => neighbor === 'B').length
+}
+
+let getValue = (bombBoard, rowIndex, columnIndex) => {
+  return bombBoard[rowIndex] === undefined ? false : bombBoard[rowIndex][columnIndex]
 }
 
 let printBoard = (player, bomb) => {
@@ -79,6 +84,7 @@ let printBoard = (player, bomb) => {
   console.log(player.map(row => row.join(' | ')).join('\n'))
   console.log('Bomb Board: ')
   console.log(bomb.map(row => row.join(' | ')).join('\n'))
+  console.log(getNumberOfNeighborBombs(bomb, 0,0))
 }
 
 printBoard(generatePlayerBoard(6,6), generateBombBoard(6,6,4))
