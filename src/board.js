@@ -47,22 +47,25 @@ export default class Board {
     return this._bombBoard[rowIndex] === undefined ? false : this._bombBoard[rowIndex][columnIndex]
   }
 
+  /**
+   * @description Attempts to flip a tile. Return values are true/false/'B'
+   */
   flipTile = (rowIndex, columnIndex) => {
     let tile = this.getValue(rowIndex, columnIndex);
     if (tile && tile === ' ') {
       // case: tile is open
       this._playerBoard[rowIndex][columnIndex] = this.getNumberOfNeighborBombs(rowIndex, columnIndex);
       this._tiles--;
-      return this._playerBoard
+      return true;
     } else if (tile && tile === 'B') {
       // case: tile is a bomb
-      return 'BOMB'
+      return 'B'
     }  else if (tile === false || tile === undefined) {
       // case: tile is out of bounds
-      return 'OUT OF BOUNDS'
+      return false
     } else {
       // case: tile is close
-      return this._playerBoard
+      return true;
     }
   }
 
