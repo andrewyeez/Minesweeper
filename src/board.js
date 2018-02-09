@@ -1,4 +1,4 @@
-class Board {
+export default class Board {
   /**
    * @description Constructor defines the instance properties
    * @param {Number} row
