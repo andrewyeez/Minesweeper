@@ -67,6 +67,15 @@ class Board {
   }
 
   /**
+   * @description Validates if the amount of open tiles vs bombs match.
+   * if it matches, then the user wins the game (returns false: no more safe tiles).
+   * else the player continues to play (returns true).
+   */
+  hasSafeTiles = () => {
+    return this._tiles === this._bomb ? false : true;
+  }
+
+  /**
    *  A flipped tile can have 8 possible neighbors, at most, no matter the size of a board
    *
    *  a | b | c
@@ -101,5 +110,14 @@ class Board {
       this.getValue(rowIndex+1,columnIndex+1)  // h
     ]
     return neighbors.filter(neighbor => neighbor === 'B').length
+  }
+
+  print = () => {
+    // console.log('Player Board: ')
+    // console.log(player.map(row => row.join(' | ')).join('\n'))
+    console.log('Bomb Board: ')
+    console.log(this._bombBoardbomb.map(row => row.join(' | ')).join('\n'))
+    console.log('Player Board: ')
+    console.log(this._playerBoard.map(row => row.join(' | ')).join('\n'))
   }
 }
