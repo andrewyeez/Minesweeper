@@ -1,4 +1,4 @@
-export default class Board {
+class Board {
   /**
    * @description Constructor defines the instance properties
    * @param {Number} row
@@ -27,7 +27,7 @@ export default class Board {
     return board;
   }
 
-  static generateBombBoard = (row, column, bomb) => {
+  static generateBombBoard(row, column, bomb){
     let board = Board.generatePlayerBoard(row, column);
     while (bomb--) {
       let randomRowIndex = Math.floor(Math.random() * row);
@@ -43,14 +43,14 @@ export default class Board {
    * @param {Number} rowIndex
    * @param {Number} columnIndex
    */
-  getValue = (rowIndex, columnIndex) => {
+  getValue(rowIndex, columnIndex){
     return this._bombBoard[rowIndex] === undefined ? false : this._bombBoard[rowIndex][columnIndex]
   }
 
   /**
    * @description Attempts to flip a tile. Return values are true/false/'B'
    */
-  flipTile = (rowIndex, columnIndex) => {
+  flipTile(rowIndex, columnIndex){
     let tile = this.getValue(rowIndex, columnIndex);
     if (tile && tile === ' ') {
       // case: tile is open
@@ -74,7 +74,7 @@ export default class Board {
    * if it matches, then the user wins the game (returns false: no more safe tiles).
    * else the player continues to play (returns true).
    */
-  hasSafeTiles = () => {
+  hasSafeTiles(){
     return this._tiles === this._bomb ? false : true;
   }
 
@@ -100,7 +100,7 @@ export default class Board {
    * @param {Number} rowIndex
    * @param {Number} columnIndex
    */
-  getNumberOfNeighborBombs = (rowIndex, columnIndex) => {
+  getNumberOfNeighborBombs(rowIndex, columnIndex){
     if (this._bombBoard[rowIndex, columnIndex] === 'B') { console.log('BOMB BRRRRRAAH') }
     let neighbors = [
       this.getValue(rowIndex-1,columnIndex-1), // a
@@ -115,7 +115,7 @@ export default class Board {
     return neighbors.filter(neighbor => neighbor === 'B').length
   }
 
-  print = () => {
+  print(){
     // console.log('Player Board: ')
     // console.log(player.map(row => row.join(' | ')).join('\n'))
     console.log('Bomb Board: ')
@@ -124,3 +124,5 @@ export default class Board {
     console.log(this._playerBoard.map(row => row.join(' | ')).join('\n'))
   }
 }
+
+module.exports = new Board()

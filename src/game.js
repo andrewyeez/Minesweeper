@@ -1,11 +1,11 @@
-import Board from './board.js'
+const Board = require('./board')
 
-export default class Game {
+class Game {
   constructor(row, column, bomb){
     this._board = Board(row, column, bomb);
   }
 
-  playMove = (rowIndex, columnIndex) => {
+  playMove(rowIndex, columnIndex){
     let response = this._board.flipTile(rowIndex, columnIndex);
     switch (response) {
       case 'B':
