@@ -2,7 +2,7 @@ const Board = require('./board')
 
 class Game {
   constructor(row, column, bomb){
-    this._board = Board(row, column, bomb);
+    this._board = new Board(row, column, bomb);
   }
 
   playMove(rowIndex, columnIndex){
@@ -13,7 +13,7 @@ class Game {
         this._board.print();
         break;
       case true:
-        if (Board.hasSafeTiles) {
+        if (this._board.hasSafeTiles()) {
           console.log('Pick your next tile: ');
           this._board.print();
         } else {
