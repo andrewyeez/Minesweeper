@@ -16,7 +16,7 @@ class Board {
 
   get playerBoard() { return this._playerBoard; }
 
-  static generatePlayerBoard = (row, column) => {
+  static generatePlayerBoard(row, column){
     let board = [];
     while (row--) {
       let element = [];
