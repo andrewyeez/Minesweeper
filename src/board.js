@@ -116,8 +116,6 @@ module.exports = class Board {
   }
 
   print(){
-    // console.log('Player Board: ')
-    // console.log(player.map(row => row.join(' | ')).join('\n'))
     console.log('Bomb Board: ')
     console.log(this._bombBoard.map(row => row.join(' | ')).join('\n'))
     console.log('Player Board: ')

@@ -1,6 +1,6 @@
 const Board = require('./board')
 
-class Game {
+module.exports = class Game {
   constructor(row, column, bomb){
     this._board = new Board(row, column, bomb);
   }
@@ -29,5 +29,6 @@ class Game {
         console.log('Huh?');
         break;
     }
+    return response;
   }
 }
