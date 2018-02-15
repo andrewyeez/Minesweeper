@@ -3,3 +3,4 @@
  */
 
  // find a way to create a synchronous experience playing minesweeper
+const game = require('./game');
