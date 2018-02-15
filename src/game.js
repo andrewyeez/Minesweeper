@@ -1,6 +1,5 @@
-const Board = require('./board')
-
-module.exports = class Game {
+import Board from './board'
+export default class Game {
   constructor(row, column, bomb){
     this._board = new Board(row, column, bomb);
   }
