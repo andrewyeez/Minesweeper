@@ -9,6 +9,9 @@ Built a Minesweeper terminal game.
     - classes
       - get/set
       - constructor
+  - Tools
+    - Babel
+      - Node does not support all of the new es6 oop features so we need to use babel to run our es6 codes in node v9.5 and below.
   - Data Structure
     - Array
   - Problem Solving Logics
