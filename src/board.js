@@ -18,6 +18,7 @@ export default class Board {
 
   static generatePlayerBoard(row, column){
     let board = [];
+    if(row < 0 || column < 0) {return ;}
     while (row--) {
       let element = [];
       let col = column;
@@ -29,6 +30,7 @@ export default class Board {
 
   static generateBombBoard(row, column, bomb){
     let board = Board.generatePlayerBoard(row, column);
+    if(bomb < 0) {return ;}
     while (bomb--) {
       let randomRowIndex = Math.floor(Math.random() * row);
       let randomColIndex = Math.floor(Math.random() * column);
