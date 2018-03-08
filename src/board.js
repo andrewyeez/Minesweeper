@@ -5,7 +5,7 @@ export default class Board {
    * @param {Number} column
    * @param {Number} bomb
    */
-  constructor(row, column, bomb){
+  constructor(row, column, bomb) {
     this._bomb = bomb;
     this._row = row;
     this._column = column;
@@ -14,28 +14,39 @@ export default class Board {
     this._bombBoard = Board.generateBombBoard(row, column, bomb);
   }
 
-  get playerBoard() { return this._playerBoard; }
+  get playerBoard() {
+    return this._playerBoard;
+  }
 
-  static generatePlayerBoard(row, column){
+  static generatePlayerBoard(row, column) {
     let board = [];
-    if(row < 0 || column < 0) {return ;}
+    if (row < 0 || column < 0) {
+      return;
+    }
     while (row--) {
       let element = [];
       let col = column;
-      while (col--) { element.push(' '); }
+      while (col--) {
+        element.push(" ");
+      }
       board.push(element);
     }
     return board;
   }
 
-  static generateBombBoard(row, column, bomb){
+  static generateBombBoard(row, column, bomb) {
     let board = Board.generatePlayerBoard(row, column);
-    if(bomb < 0) {return ;}
+    if (bomb < 0) {
+      return;
+    }
     while (bomb--) {
       let randomRowIndex = Math.floor(Math.random() * row);
       let randomColIndex = Math.floor(Math.random() * column);
-      if (board[randomRowIndex][randomColIndex] === 'B') { bomb++; }
-      else { board[randomRowIndex][randomColIndex] = 'B'; }
+      if (board[randomRowIndex][randomColIndex] === "B") {
+        bomb++;
+      } else {
+        board[randomRowIndex][randomColIndex] = "B";
+      }
     }
     return board;
   }
@@ -45,26 +56,31 @@ export default class Board {
    * @param {Number} rowIndex
    * @param {Number} columnIndex
    */
-  getValue(rowIndex, columnIndex){
-    return this._bombBoard[rowIndex] === undefined ? false : this._bombBoard[rowIndex][columnIndex]
+  getValue(rowIndex, columnIndex) {
+    return this._bombBoard[rowIndex] === undefined
+      ? false
+      : this._bombBoard[rowIndex][columnIndex];
   }
 
   /**
    * @description Attempts to flip a tile. Return values are true/false/'B'
    */
-  flipTile(rowIndex, columnIndex){
+  flipTile(rowIndex, columnIndex) {
     let tile = this.getValue(rowIndex, columnIndex);
-    if (tile && tile === ' ') {
+    if (tile && tile === " ") {
       // case: tile is open
-      this._playerBoard[rowIndex][columnIndex] = this.getNumberOfNeighborBombs(rowIndex, columnIndex);
+      this._playerBoard[rowIndex][columnIndex] = this.getNumberOfNeighborBombs(
+        rowIndex,
+        columnIndex
+      );
       this._tiles--;
       return true;
-    } else if (tile && tile === 'B') {
+    } else if (tile && tile === "B") {
       // case: tile is a bomb
-      return 'B'
-    }  else if (tile === false || tile === undefined) {
+      return "B";
+    } else if (tile === false || tile === undefined) {
       // case: tile is out of bounds
-      return false
+      return false;
     } else {
       // case: tile is close
       return true;
@@ -76,7 +92,7 @@ export default class Board {
    * if it matches, then the user wins the game (returns false: no more safe tiles).
    * else the player continues to play (returns true).
    */
-  hasSafeTiles(){
+  hasSafeTiles() {
     return this._tiles === this._bomb ? false : true;
   }
 
@@ -102,25 +118,27 @@ export default class Board {
    * @param {Number} rowIndex
    * @param {Number} columnIndex
    */
-  getNumberOfNeighborBombs(rowIndex, columnIndex){
-    if (this._bombBoard[rowIndex, columnIndex] === 'B') { console.log('BOMB BRRRRRAAH') }
+  getNumberOfNeighborBombs(rowIndex, columnIndex) {
+    if (this._bombBoard[(rowIndex, columnIndex)] === "B") {
+      console.log("BOMB BRRRRRAAH");
+    }
     let neighbors = [
-      this.getValue(rowIndex-1,columnIndex-1), // a
-      this.getValue(rowIndex-1,columnIndex),   // b
-      this.getValue(rowIndex-1,columnIndex+1), // c
-      this.getValue(rowIndex,columnIndex-1),   // d
-      this.getValue(rowIndex,columnIndex+1),   // e
-      this.getValue(rowIndex+1,columnIndex-1), // f
-      this.getValue(rowIndex+1,columnIndex),   // g
-      this.getValue(rowIndex+1,columnIndex+1)  // h
-    ]
-    return neighbors.filter(neighbor => neighbor === 'B').length
+      this.getValue(rowIndex - 1, columnIndex - 1), // a
+      this.getValue(rowIndex - 1, columnIndex), // b
+      this.getValue(rowIndex - 1, columnIndex + 1), // c
+      this.getValue(rowIndex, columnIndex - 1), // d
+      this.getValue(rowIndex, columnIndex + 1), // e
+      this.getValue(rowIndex + 1, columnIndex - 1), // f
+      this.getValue(rowIndex + 1, columnIndex), // g
+      this.getValue(rowIndex + 1, columnIndex + 1) // h
+    ];
+    return neighbors.filter(neighbor => neighbor === "B").length;
   }
 
-  print(){
-    console.log('Bomb Board: ')
-    console.log(this._bombBoard.map(row => row.join(' | ')).join('\n'))
-    console.log('Player Board: ')
-    console.log(this._playerBoard.map(row => row.join(' | ')).join('\n'))
+  print() {
+    console.log("Bomb Board: ");
+    console.log(this._bombBoard.map(row => row.join(" | ")).join("\n"));
+    console.log("Player Board: ");
+    console.log(this._playerBoard.map(row => row.join(" | ")).join("\n"));
   }
 }
